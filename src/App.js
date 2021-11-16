@@ -10,6 +10,8 @@ function WeekDays({day}) {
 
 function MonthDays() {
   let dateObj = new Date();
+  // dateObj.setMonth(dateObj.getMonth()+1)
+  // console.log(dateObj)
 
   let dateArray = []
   
@@ -26,9 +28,9 @@ function MonthDays() {
   
   while(currentMonthDate.getMonth() === dateObj.getMonth()) {
   
-      if(currentMonthDate.getDay() % 7 === 0) {
-          dateArray.push(-1)
-      }
+      // if(currentMonthDate.getDay() % 7 === 0) {
+      //     dateArray.push(-1)
+      // }
       
       dateArray.push(currentMonthDate.getDate())
   
@@ -39,15 +41,17 @@ function MonthDays() {
   
 
   dateArray = dateArray.map((i,j) => {
-    if(i === 0) {
-      return <td></td>
+    // if(i === 0) {
+    //   return <td></td>
+    // }
+    // else if {
+    //   return (<td>{i}</td>)
+    // }
+    if(j%7 === 0) {
+      return <>{i !== 0 && <td>{i}</td>}<tr></tr></>
     }
-    if(i === -1) {
-      return <tr></tr>
-    }
-    else {
-      return <td>{i}</td>
-    }
+
+    return (i === 0) ? <td></td> : <td>{i}</td>
   })
 
   // for(let i of dateArray) {
