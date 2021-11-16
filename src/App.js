@@ -1,29 +1,62 @@
 import "./styles.css";
 
+const currentDateObj = new Date();
+
 function WeekDays({day}) {
   return (
-    ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"].map(day => <td key={day}>{day}</td>)
+    ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"].map(day => <td key={day}>{day}</td>)
   )
 }
 
 function MonthDays() {
-  let monthDaysArray = [];
-  let dateObj = new Date(new Date().getFullYear(), new Date().getMonth());
-  var monthStart = new Date(new Date().getFullYear(), new Date().getMonth());
-  var monthEnd = new Date(new Date().getFullYear(), new Date().getMonth()+1, 0).getDate();
+  let dateObj = new Date();
 
-  while (monthStart.getMonth() === dateObj.getMonth()) {
-    monthDaysArray.push(<td>{monthStart.getDate()}</td>);
-
-    if (monthStart.getDate() % 7 === 0) { // sunday, last day of week - newline
-      monthDaysArray.push(<tr></tr>);
-    }
-
-    monthStart.setDate(monthStart.getDate() + 1);
+  let dateArray = []
+  
+  let currentDate = dateObj.getDate()
+  let currentDay = dateObj.getDay()
+  let currentYear = dateObj.getFullYear()
+  let currentMonth = dateObj.getMonth()
+  
+  let currentMonthDate = new Date(currentYear, currentMonth)
+  
+  for(let i=0; i < currentDay-1; i++) {
+      dateArray.push(0)
   }
+  
+  while(currentMonthDate.getMonth() === dateObj.getMonth()) {
+  
+      if(currentMonthDate.getDay() % 7 === 0) {
+          dateArray.push(-1)
+      }
+      
+      dateArray.push(currentMonthDate.getDate())
+  
+      console.log(currentMonthDate.getDate(), currentMonthDate.getDay())
+      currentMonthDate.setDate(currentMonthDate.getDate()+1)
+  }
+  
+  
+
+  dateArray = dateArray.map((i,j) => {
+    if(i === 0) {
+      return <td></td>
+    }
+    if(i === -1) {
+      return <tr></tr>
+    }
+    else {
+      return <td>{i}</td>
+    }
+  })
+
+  // for(let i of dateArray) {
+  //   for(
+  // }
+
   return(
     <tbody>
-      {monthDaysArray}
+      {dateArray}
     </tbody>
   )
 }
